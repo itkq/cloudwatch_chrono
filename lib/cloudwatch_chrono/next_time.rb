@@ -27,6 +27,14 @@ module CloudwatchChrono
 
     private
 
+    def scheduled_in_this_day?
+      if schedule.last_day?
+        return time.day == time.end_of_month.day
+      end
+
+      super
+    end
+
     def schedule
       @schedule ||= Schedule.new(source)
     end

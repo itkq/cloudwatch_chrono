@@ -24,5 +24,9 @@ module CloudwatchChrono
     def wdays?
       !%w[* ?].include?(fields[4])
     end
+
+    def last_day?
+      fields[2] == 'L'
+    end
   end
 end
