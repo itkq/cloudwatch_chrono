@@ -32,6 +32,8 @@ module CloudwatchChrono
         return time.day == time.end_of_month.day
       elsif schedule.latest_weekday
         return time.day == calc_latest_weekday
+      elsif schedule.ordered_weekday
+        return time.day == calc_ordered_weekday
       end
 
       super
@@ -47,6 +49,30 @@ module CloudwatchChrono
       else
         target.day
       end
+    end
+
+    def calc_ordered_weekday
+      wday, order = schedule.ordered_weekday
+
+      month = time.month
+      curr = time.beginning_of_month
+      while curr.wday != wday
+        curr = curr.advance(days: 1)
+      end
+
+      if curr.month != month
+        curr = curr.advance(weeks: 1)
+      end
+
+      (order - 1).times do
+        curr = curr.advance(weeks: 1)
+      end
+
+      if curr.month != month
+        raise ArgumentError, "invalid cron string '#{@source}'"
+      end
+
+      curr.day
     end
 
     def schedule

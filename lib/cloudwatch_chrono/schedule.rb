@@ -32,5 +32,13 @@ module CloudwatchChrono
     def latest_weekday
       fields[2].slice(/\A(\d+)W\z/, 1)
     end
+
+    # e.g. 3#2 means the second Tuesday and returns [3, 2]
+    def ordered_weekday
+      m = fields[2].match(/\A([0-6])#([1-5])\z/)
+      if m
+        m[1, 2].map(&:to_i)
+      end
+    end
   end
 end
