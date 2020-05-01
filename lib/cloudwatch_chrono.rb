@@ -1,6 +1,5 @@
+require "cloudwatch_chrono/fields"
+require "cloudwatch_chrono/iterator"
+require "cloudwatch_chrono/next_time"
+require "cloudwatch_chrono/schedule"
 require "cloudwatch_chrono/version"
-
-module CloudwatchChrono
-  class Error < StandardError; end
-  # Your code goes here...
-end

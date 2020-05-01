@@ -1,0 +1,7 @@
+require "chrono/fields/base"
+require "chrono/fields/day"
+require "chrono/fields/hour"
+require "chrono/fields/minute"
+require "chrono/fields/month"
+require "cloudwatch_chrono/fields/wday"
+require "cloudwatch_chrono/fields/year"
