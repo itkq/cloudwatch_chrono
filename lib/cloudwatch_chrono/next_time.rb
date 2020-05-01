@@ -30,9 +30,23 @@ module CloudwatchChrono
     def scheduled_in_this_day?
       if schedule.last_day?
         return time.day == time.end_of_month.day
+      elsif schedule.latest_weekday
+        return time.day == calc_latest_weekday
       end
 
       super
+    end
+
+    def calc_latest_weekday
+      target = time.change(day: schedule.latest_weekday)
+      case target.wday
+      when 0 # SUN
+        target.day + 1
+      when 6 # SAT
+        target.day - 1
+      else
+        target.day
+      end
     end
 
     def schedule

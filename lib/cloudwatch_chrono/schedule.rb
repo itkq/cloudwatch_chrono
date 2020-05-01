@@ -28,5 +28,9 @@ module CloudwatchChrono
     def last_day?
       fields[2] == 'L'
     end
+
+    def latest_weekday
+      fields[2].slice(/\A(\d+)W\z/, 1)
+    end
   end
 end
